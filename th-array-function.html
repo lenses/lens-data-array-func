@@ -58,10 +58,19 @@ Element providing solution to no problem in particular.
           font-size: 11px;
 
         }
+        .data {
+          max-width: 390px;
+          max-height: 100px;
+          overflow: scroll;
+        }
         .elTitle {
           color: #2fa3af;
           padding: 2px;
         }
+        label {
+          color: #2fa3af;
+        }
+
 
 
     </style>
@@ -94,8 +103,8 @@ Element providing solution to no problem in particular.
 
     </core-collapse>
     <core-collapse id="results_collapse">
-        <div>Input: <span> {{_stringInput}} </span></div>
-        <div>Output: <span>{{_stringOutput}} </span></div>
+        <div><label>Input:</label> <pre class="data"> {{_stringInput}} </pre></div>
+        <div><label>Output:</label> <pre class="data">{{_stringOutput}} </pre></div>
 
     </core-collapse>
 
@@ -123,8 +132,10 @@ Element providing solution to no problem in particular.
       _stringInput: '',
       _stringOutput: '',
       _selectedFunc: 0,
-      ready: function() {
-        self._stringInput = JSON.stringify(self.input);
+      domReady: function() {
+        var self = this;
+        self.stringifyData();
+
       },
 
       functionChanged: function() {
@@ -173,8 +184,12 @@ Element providing solution to no problem in particular.
           return;
         }
         self.error = '';
-        self._stringInput = JSON.stringify(self.input);
-        self._stringOutput = JSON.stringify(self.output);
+      },
+      stringifyData: function() {
+        var self = this;
+        self._stringInput = JSON.stringify(self.input, null, ' ');
+        self._stringOutput = JSON.stringify(self.output, null, ' ');
+
       },
       
       showControls: function(e) {
