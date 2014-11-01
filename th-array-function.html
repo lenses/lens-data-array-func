@@ -59,8 +59,8 @@ Element providing solution to no problem in particular.
 
         }
         .data {
-          max-width: 390px;
-          max-height: 100px;
+          max-width: 500px;
+          max-height: 50px;
           overflow: scroll;
         }
         .elTitle {
@@ -70,7 +70,6 @@ Element providing solution to no problem in particular.
         label {
           color: #2fa3af;
         }
-
 
 
     </style>
@@ -114,6 +113,7 @@ Element providing solution to no problem in particular.
 
     Polymer('th-array-function', {
 
+      input: [{a: 2, b: 5},{a: 10, b: 40, c: {ca: 10} }],
       observe: {
         funcContent: 'functionChanged',
         input: 'evaluateOutput',
@@ -132,10 +132,8 @@ Element providing solution to no problem in particular.
       _stringInput: '',
       _stringOutput: '',
       _selectedFunc: 0,
-      domReady: function() {
-        var self = this;
-        self.stringifyData();
-
+      ready: function() {
+        self._stringInput = JSON.stringify(self.input);
       },
 
       functionChanged: function() {
@@ -173,6 +171,7 @@ Element providing solution to no problem in particular.
       evaluateOutput: function() {
         var self = this;
         var temp = self.input;
+        self._stringInput = JSON.stringify(self.input);
         if(self._function==undefined) {
           return;
         }
@@ -184,12 +183,8 @@ Element providing solution to no problem in particular.
           return;
         }
         self.error = '';
-      },
-      stringifyData: function() {
-        var self = this;
-        self._stringInput = JSON.stringify(self.input, null, ' ');
-        self._stringOutput = JSON.stringify(self.output, null, ' ');
-
+        //self._stringInput = JSON.stringify(self.input); //, null, ' ');
+        self._stringOutput = JSON.stringify(self.output); //, null, ' ');
       },
       
       showControls: function(e) {
