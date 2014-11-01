@@ -132,7 +132,8 @@ Element providing solution to no problem in particular.
       _stringInput: '',
       _stringOutput: '',
       _selectedFunc: 0,
-      ready: function() {
+      domReady: function() {
+        var self = this;
         self._stringInput = JSON.stringify(self.input);
       },
 
