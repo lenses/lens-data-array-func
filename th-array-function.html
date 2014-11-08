@@ -194,7 +194,11 @@ Element providing solution to no problem in particular.
 
       showResults: function(e) {
           this.$.results_collapse.toggle();
-      } 
+      }, 
+      outputChanged: function(){
+        this.fire('th-output-changed', this);
+      }
+
 
 
     });
