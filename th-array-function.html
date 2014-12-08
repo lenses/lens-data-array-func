@@ -1,5 +1,4 @@
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../th-animated/th-animated.html">
 <link rel="import" href="../core-selector/core-selector.html">
 <link rel="import" href="../core-collapse/core-collapse.html">
 <link rel="import" href="../core-icon-button/core-icon-button.html">
@@ -17,7 +16,7 @@ Element providing solution to no problem in particular.
 @status alpha
 @homepage http://sepans.github.io/th-array-function
 -->
-<polymer-element name="th-array-function" extends="th-animated" attributes="input output">
+<polymer-element name="th-array-function" attributes="input output">
 
   <template>
 
@@ -25,7 +24,8 @@ Element providing solution to no problem in particular.
         :host{
           font-size: 12px;
           font-family: open-sans, sans-serif;
-          min-width: 150px;
+          width: 150px;
+
         } 
         core-input, textarea {
           border: 1px solid #eee;
