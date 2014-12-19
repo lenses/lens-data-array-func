@@ -8,7 +8,7 @@
 org=$1
 repo=$2
 
-echo 'sepand'
+echo "git clone git@github.com:$org/$repo.git --single-branch"
 # make folder (same as input, no checking!)
 mkdir $repo
 git clone git@github.com:$org/$repo.git --single-branch
