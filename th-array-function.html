@@ -17,7 +17,7 @@ Element providing solution to no problem in particular.
 @status alpha
 @homepage http://sepans.github.io/th-array-function
 -->
-<polymer-element name="th-array-function" extends="th-animated" attributes="input output">
+<polymer-element name="th-array-function" extends="th-animated" attributes="input output functionName functionContent">
 
   <template>
 
@@ -82,9 +82,9 @@ Element providing solution to no problem in particular.
     <core-collapse id="ctrl_collapse">
 
         <label>function: </label>
-        <core-selector id="selectedFunc" selectedIndex="{{_selectedFunc}}">
+        <core-selector id="selectedFunc" selected="{{functionName}}" valueattr="label">
           <template repeat="{{func in _functions}}">
-            <div class="item">{{func.name}}</div>
+            <div label="{{func.name}}" class="item">{{func.name}}</div>
           </template>
 
         </core-selector>
@@ -92,11 +92,11 @@ Element providing solution to no problem in particular.
 
         <div class="error">{{displayError}}</div>
         <span class="func-signature code">
-        {{_functions[_selectedFunc].signature}}
+        {{_signature}}
         </span>
-    <!--     <textarea id="map_function" value="{{funcContent}}"></textarea>
+    <!--     <textarea id="map_function" value="{{functionContent}}"></textarea>
      -->
-        <textarea value="{{funcContent}}" class="code" placeholder="enter map function" rows="4">></textarea>
+        <textarea value="{{functionContent}}" class="code" placeholder="enter map function" rows="4">></textarea>
         <span class="func-temppate"> } </span>
 
 
@@ -115,36 +115,42 @@ Element providing solution to no problem in particular.
 
       input: [{a: 2, b: 5},{a: 10, b: 40, c: {ca: 10} }],
       observe: {
-        funcContent: 'functionChanged',
+        functionContent: 'functionChanged',
         input: 'evaluateOutput',
-        _selectedFunc: 'evaluateOutput'
+        functionName: 'functionChanged'
         //output: 'evaluateOutput'
       },
       _functions: [
         { name: 'map', signature: 'function(current, index, array ) {', func: [].map , params: ['current', 'index', 'array'] },
-        { name: 'reduce', signature: 'function(previous, current, index, array ) {', func: [].map , params: ['previous','current', 'index', 'array'] },
-        { name: 'reduceRight', signature: 'function(previous, current, index, array ) {', func: [].map , params: ['previous','current', 'index', 'array'] },
+        { name: 'reduce', signature: 'function(previous, current, index, array ) {', func: [].reduce , params: ['previous','current', 'index', 'array'] },
+        { name: 'reduceRight', signature: 'function(previous, current, index, array ) {', func: [].reduceRight , params: ['previous','current', 'index', 'array'] },
         { name: 'filter', signature: 'function(current) {', func: [].filter , params: ['current'] }
       ],
+      _funcNames: ['map', 'reduce', 'reduceRight', 'filter'],
       _function: undefined,
       error: '',
       displayError: '',
       _stringInput: '',
       _stringOutput: '',
-      _selectedFunc: 0,
+      functionName: 'map',
+      _functionIndex: 0,
       domReady: function() {
         var self = this;
         self._stringInput = JSON.stringify(self.input);
+
+        self._signature = self._functions[self._functionIndex].signature;
       },
 
       functionChanged: function() {
           var self = this;
+          self._functionIndex = self._funcNames.indexOf(self.functionName);
+
+          self._signature = self._functions[self._functionIndex].signature;
           try {
-            self._function = new Function(self._functions[self._selectedFunc].params, self.funcContent); //newFunction; //created by eval 
+            self._function = new Function(self._functions[self._functionIndex].params, self.functionContent); //newFunction; //created by eval 
           }
           catch(e) {
             self.error = e.message;
-            //console.log(e.stack); // stack doesn't provide line number for annonymos function
             return;
           }
           self.error = '';
@@ -177,7 +183,7 @@ Element providing solution to no problem in particular.
           return;
         }
         try {
-          self.output = self._functions[self._selectedFunc].func.call(temp, self._function); //temp.map(self._function);
+          self.output = self._functions[self._functionIndex].func.call(temp, self._function); //temp.map(self._function);
         }
         catch(e) {
           self.error = e.message;
