@@ -10,14 +10,14 @@ Element providing solution to no problem in particular.
 
 ##### Example
 
-    <th-array-function></th-array-function>
+    <lens-data-array-func></lens-data-array-func>
 
-@element th-array-function
+@element lens-data-array-func
 @blurb Element providing solution to no problem in particular.
 @status alpha
-@homepage http://sepans.github.io/th-array-function
+@homepage http://sepans.github.io/lens-data-array-func
 -->
-<polymer-element name="th-array-function" extends="th-animated" attributes="input output functionName functionContent">
+<polymer-element name="lens-data-array-func" extends="th-animated" attributes="input output functionName functionContent">
 
   <template>
 
@@ -73,7 +73,7 @@ Element providing solution to no problem in particular.
 
 
     </style>
-    <!-- <span class="elTitle">th-array-function</span> -->
+    <!-- <span class="elTitle">lens-data-array-func</span> -->
 
     <core-icon-button icon="perm-data-setting" on-click="{{showControls}}"></core-icon-button>
     <core-icon-button icon="view-list" on-click="{{showResults}}" class="{{ {disabled: !hasData} | tokenList}}"></core-icon-button>
@@ -111,7 +111,7 @@ Element providing solution to no problem in particular.
 
   <script>
 
-    Polymer('th-array-function', {
+    Polymer('lens-data-array-func', {
 
       input: [{a: 2, b: 5},{a: 10, b: 40, c: {ca: 10} }],
       observe: {
