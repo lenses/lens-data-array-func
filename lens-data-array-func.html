@@ -81,6 +81,14 @@ A data component with map, reduce, reduceRight and filter functions.
       displayError: '',
       _stringInput: '',
       _stringOutput: '',
+      /**
+       *  functionName is a string that can be 'map', 'reduce', 'reduceRight' or 'filter'.
+       *  This determines the behavior of the array function.
+       *  
+       *  @property functionName
+       *  @type String
+       *  @default 'map'
+       */
       functionName: 'map',
       _functionIndex: 0,
       domReady: function() {
