@@ -1,111 +1,45 @@
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../th-animated/th-animated.html">
 <link rel="import" href="../core-selector/core-selector.html">
-<link rel="import" href="../core-collapse/core-collapse.html">
-<link rel="import" href="../core-icon-button/core-icon-button.html">
 
 
 <!--
-Element providing solution to no problem in particular.
+A data component with map, reduce, reduceRight and filter functions.
 
 ##### Example
 
     <lens-data-array-func></lens-data-array-func>
 
 @element lens-data-array-func
-@blurb Element providing solution to no problem in particular.
+@blurb A data component with map, reduce and filter functions.
 @status alpha
-@homepage http://sepans.github.io/lens-data-array-func
+@homepage http://lenses.github.io/lens-data-array-func
 -->
-<polymer-element name="lens-data-array-func" extends="th-animated" attributes="input output functionName functionContent">
+<polymer-element name="lens-data-array-func" attributes="input output functionName functionContent">
 
   <template>
+    <link rel="stylesheet" href="lens-data-array-func.css">
 
-    <style>
-        :host{
-          font-size: 12px;
-          font-family: open-sans, sans-serif;
-          width: 150px;
+    <div class="lens-container lens-data">
 
-        } 
-        core-input, textarea {
-          border: 1px solid #eee;
-          height: 50px;
-          vertical-align: top;
-          outline: none;
-        }
-        .error {
-          color: #F00;
-          height: 1em;
-        }
-        core-selector {
-          width: 150px;
-          display: inline-block;
-          vertical-align: top;
-        }
-        .core-selected {
-          background-color: #ccc;
-          border: 1px solid #888;
-        }
-        .func-signature {
-          display: inline-block;
-          width: 295px;
-          text-align: right;
-        }
-        .code {
+          <label>function: </label>
+          <core-selector id="selectedFunc" selected="{{functionName}}" valueattr="label">
+            <template repeat="{{func in _functions}}">
+              <div label="{{func.name}}" class="item">{{func.name}}</div>
+            </template>
 
-          font-family: monaco monospace 'courier' 'courier new'  ;
-          font-size: 11px;
-
-        }
-        .data {
-          max-width: 500px;
-          max-height: 50px;
-          overflow: scroll;
-        }
-        .elTitle {
-          color: #2fa3af;
-          padding: 2px;
-        }
-        label {
-          color: #2fa3af;
-        }
+          </core-selector>
 
 
-    </style>
-    <!-- <span class="elTitle">lens-data-array-func</span> -->
+          <div class="error">{{displayError}}</div>
+          <span class="func-signature code">
+          {{_signature}}
+          </span>
+      <!--     <textarea id="map_function" value="{{functionContent}}"></textarea>
+       -->
+          <textarea value="{{functionContent}}" class="code" placeholder="enter map function" rows="4">></textarea>
+          <span class="func-temppate"> } </span>
 
-    <core-icon-button icon="perm-data-setting" on-click="{{showControls}}"></core-icon-button>
-    <core-icon-button icon="view-list" on-click="{{showResults}}" class="{{ {disabled: !hasData} | tokenList}}"></core-icon-button>
-
-
-    <core-collapse id="ctrl_collapse">
-
-        <label>function: </label>
-        <core-selector id="selectedFunc" selected="{{functionName}}" valueattr="label">
-          <template repeat="{{func in _functions}}">
-            <div label="{{func.name}}" class="item">{{func.name}}</div>
-          </template>
-
-        </core-selector>
-
-
-        <div class="error">{{displayError}}</div>
-        <span class="func-signature code">
-        {{_signature}}
-        </span>
-    <!--     <textarea id="map_function" value="{{functionContent}}"></textarea>
-     -->
-        <textarea value="{{functionContent}}" class="code" placeholder="enter map function" rows="4">></textarea>
-        <span class="func-temppate"> } </span>
-
-
-    </core-collapse>
-    <core-collapse id="results_collapse">
-        <div><label>Input:</label> <pre class="data"> {{_stringInput}} </pre></div>
-        <div><label>Output:</label> <pre class="data">{{_stringOutput}} </pre></div>
-
-    </core-collapse>
+    </div>
 
   </template>
 
@@ -113,7 +47,22 @@ Element providing solution to no problem in particular.
 
     Polymer('lens-data-array-func', {
 
-      input: [{a: 2, b: 5},{a: 10, b: 40, c: {ca: 10} }],
+      /**
+       * Input data
+       *
+       * @property input
+       * @type Array
+       * @default null
+       */
+      input: null,
+      /**
+       * Output data
+       *
+       * @property output
+       * @type Array
+       * @default null
+       */
+      output: null,
       observe: {
         functionContent: 'functionChanged',
         input: 'evaluateOutput',
@@ -132,6 +81,14 @@ Element providing solution to no problem in particular.
       displayError: '',
       _stringInput: '',
       _stringOutput: '',
+      /**
+       *  functionName is a string that can be 'map', 'reduce', 'reduceRight' or 'filter'.
+       *  This determines the behavior of the array function.
+       *  
+       *  @property functionName
+       *  @type String
+       *  @default 'map'
+       */
       functionName: 'map',
       _functionIndex: 0,
       domReady: function() {
@@ -192,20 +149,7 @@ Element providing solution to no problem in particular.
         self.error = '';
         //self._stringInput = JSON.stringify(self.input); //, null, ' ');
         self._stringOutput = JSON.stringify(self.output); //, null, ' ');
-      },
-      
-      showControls: function(e) {
-          this.$.ctrl_collapse.toggle();
-      } ,
-
-      showResults: function(e) {
-          this.$.results_collapse.toggle();
-      }, 
-      outputChanged: function(){
-        this.fire('th-output-changed', this);
       }
-
-
 
     });
 
