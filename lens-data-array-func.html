@@ -39,14 +39,6 @@ A data component with map, reduce, reduceRight and filter functions.
           <textarea value="{{functionContent}}" class="code" placeholder="enter map function" rows="4">></textarea>
           <span class="func-temppate"> } </span>
 
-
-<!--       </core-collapse>
-
-      <core-collapse id="results_collapse">
-          <div><label>Input:</label> <pre class="data"> {{_stringInput}} </pre></div>
-          <div><label>Output:</label> <pre class="data">{{_stringOutput}} </pre></div>
-
-      </core-collapse> -->
     </div>
 
   </template>
@@ -60,8 +52,16 @@ A data component with map, reduce, reduceRight and filter functions.
        *
        *  @attributes input
        *  @type {Array}
+       *  @default null
        */
-      input: [{a: 2, b: 5},{a: 10, b: 40, c: {ca: 10} }],
+      input: null,
+      /**
+       *  output
+       *
+       *  @attributes input
+       *  @type {Array}
+       */
+      output: null,
       observe: {
         functionContent: 'functionChanged',
         input: 'evaluateOutput',
@@ -145,8 +145,6 @@ A data component with map, reduce, reduceRight and filter functions.
       outputChanged: function(){
         this.fire('th-output-changed', this);
       }
-
-
 
     });
 
