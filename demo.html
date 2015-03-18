@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>lens-data-array-func Demo</title>
+
+  <script src="../webcomponentsjs/webcomponents.js"></script>
+  <link rel="import" href="lens-data-array-func.html">
+
+</head>
+<body unresolved>
+
+  <p>An `lens-data-array-func` looks like this:</p>
+
+  <lens-data-array-func></lens-data-array-func>
+
+  <script>
+  	document.addEventListener('polymer-ready', function() {
+  		console.log('ready');
+  		var map = document.querySelector('lens-data-array-func');
+  		map.input = [{a: 2, b: 5},{a: 10, b: 40, c: {ca: 10} }];
+  	})
+
+
+  </script>
+
+</body>
+</html>
