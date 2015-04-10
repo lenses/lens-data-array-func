@@ -79,8 +79,6 @@ A data component with map, reduce, reduceRight and filter functions.
       _function: undefined,
       error: '',
       displayError: '',
-      _stringInput: '',
-      _stringOutput: '',
       /**
        *  functionName is a string that can be 'map', 'reduce', 'reduceRight' or 'filter'.
        *  This determines the behavior of the array function.
@@ -93,7 +91,6 @@ A data component with map, reduce, reduceRight and filter functions.
       _functionIndex: 0,
       domReady: function() {
         var self = this;
-        self._stringInput = JSON.stringify(self.input);
 
         self._signature = self._functions[self._functionIndex].signature;
       },
@@ -135,7 +132,6 @@ A data component with map, reduce, reduceRight and filter functions.
       evaluateOutput: function() {
         var self = this;
         var temp = self.input;
-        self._stringInput = JSON.stringify(self.input);
         if(self._function==undefined) {
           return;
         }
@@ -147,8 +143,6 @@ A data component with map, reduce, reduceRight and filter functions.
           return;
         }
         self.error = '';
-        //self._stringInput = JSON.stringify(self.input); //, null, ' ');
-        self._stringOutput = JSON.stringify(self.output); //, null, ' ');
       }
 
     });
