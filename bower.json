@@ -9,7 +9,7 @@
   "main": "lens-data-array-func.html",
   "dependencies": {
     "polymer": "Polymer/polymer#~0.5.5",
-    "th-theme": "thelmanews/th-theme",
+    "lodash": "lodash#~3.5.0",
     "core-selector": "polymer/core-selector#~0.5.5",
     "core-component-page" : "Polymer/core-component-page#^0.5.5"
   },

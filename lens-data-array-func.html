@@ -1,5 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../core-selector/core-selector.html">
+<link rel="import" href="../core-selector/core-selector.html">
 
 
 <!--
@@ -43,6 +44,8 @@ A data component with map, reduce, reduceRight and filter functions.
 
   </template>
 
+  <script src="../lodash/lodash.js"></script>
+
   <script>
 
     Polymer('lens-data-array-func', {
@@ -65,9 +68,9 @@ A data component with map, reduce, reduceRight and filter functions.
       output: null,
       observe: {
         functionContent: 'functionChanged',
-        input: 'evaluateOutput',
+        input: '_calculateOutput',
         functionName: 'functionChanged'
-        //output: 'evaluateOutput'
+        //output: '_calculateOutput'
       },
       _functions: [
         { name: 'map', signature: 'function(current, index, array ) {', func: [].map , params: ['current', 'index', 'array'] },
@@ -109,7 +112,7 @@ A data component with map, reduce, reduceRight and filter functions.
           }
           self.error = '';
           if(self.input) {
-            self.evaluateOutput();
+            self._calculateOutput();
           }
 
       },
@@ -129,9 +132,9 @@ A data component with map, reduce, reduceRight and filter functions.
         }, 1000);
       },
 
-      evaluateOutput: function() {
+      _calculateOutput: function() {
         var self = this;
-        var temp = self.input;
+        var temp = _.clone(self.input);
         if(self._function==undefined) {
           return;
         }
