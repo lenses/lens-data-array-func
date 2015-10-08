@@ -37,7 +37,7 @@ A data component with map, reduce, reduceRight and filter functions.
       <!--     <textarea id="map_function" value="{{functionContent}}"></textarea>
        -->
           <textarea value="{{functionContent::input}}" class="code" placeholder="enter map function" rows="4">&gt;</textarea>
-          <span class="func-temppate"> } </span>
+          <span class="func-temppate closing-brance"> } </span>
 
     </div>
 
@@ -175,6 +175,8 @@ A data component with map, reduce, reduceRight and filter functions.
       }
       try {
         self.output = self._functions[self._functionIndex].func.call(temp, self._function);  //temp.map(self._function);
+        console.log('firing evnet', self.output);
+        self.fire('lens-output-changed', self.output);
       } //temp.map(self._function);
       catch (e) {
         self.error = e.message;

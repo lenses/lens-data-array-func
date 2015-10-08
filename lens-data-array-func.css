@@ -10,6 +10,10 @@ core-input, textarea {
   vertical-align: top;
   outline: none;
 }
+textarea {
+    margin-left: 100px;
+    width: 195px;
+}
 .error {
   color: #F00;
   height: 1em;
@@ -33,6 +37,10 @@ core-selector {
   font-family: monaco monospace 'courier' 'courier new'  ;
   font-size: 11px;
 
+}
+.closing-brance { 
+  display: block;
+  float: right;
 }
 .data {
   max-width: 500px;
