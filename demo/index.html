@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>lens-data-array-func Demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents.js"></script>
+    <link rel="import" href="../lens-data-array-func.html">
+
+    <style>
+      body {
+        font-family: sans-serif;
+        font-size: 14px;
+      }
+
+      .logo {
+        background: url('https://avatars3.githubusercontent.com/u/8629151?v=3&s=50') 0 0 no-repeat;
+        width: 50px;
+        height: 50px;
+        display: inline-block;
+        float: left;
+        margin-left: 5px;
+        margin-right: 15px;
+      }
+
+      p {
+        font-size: 14px;
+      }
+
+      a, a:visited {
+        color: #333;
+      }
+
+      h1 {
+        font-size: 18px;
+        font-family: monaco;
+      }
+      
+      pre {
+        border: 1px solid #EEE;
+        font-size: 12px;
+        max-width: 300px;
+        max-height: 300px;
+        overflow: scroll;
+
+      }
+      #component {
+        border: 1px solid #BBB;
+        margin: 10px;
+        padding: 5px;
+        display: block;
+        width: 300px;
+      }
+
+      .component::before, .component::after {
+        content: '\2794';
+        position: absolute;
+        top: 50%;
+      }
+      .component::before {
+        right: -15px;
+      }
+
+      .component::after {
+        left: -15px;
+      }
+
+      section {
+        display: inline-block;
+        margin: 8px;
+        vertical-align: top;
+        position: relative;
+      }
+      html /deep/ input[is=core-input] {
+        border-bottom: 1px solid #E5E5E5 !important;
+      }
+
+      .count {
+        float: right;
+        font-size: 12px;
+      }
+
+    </style>
+
+
+  </head>
+  <body unresolved="">
+    
+    <div class="logo">
+    </div> 
+    <h1>lens-data-array-func</h1>
+    <p>
+      A '<a href="http://lenses.github.io/lenses-freeform/components/lenses-freeform/" target="_blank">lenses</a>'' component for applying JS array funcions on dataset. Source on <a href="https://github.com/lenses/lens-data-array-func" target="_blank">Github</a>
+    </p>
+
+    <template id="auto-bind-demo" is="dom-bind">
+
+
+      <section>
+        <label>Input:</label>
+        <pre id="input"></pre>
+      </section>
+      <section class="component">
+        <label>Component:</label>
+        <lens-data-array-func  id="component"></lens-data-array-func>
+      </section>
+      <section>
+        <label>Output:</label>
+        <pre id="output"></pre>
+      </section>
+      
+      <script>
+        var preInput = document.getElementById('input');
+        var preOutput = document.getElementById('output');
+
+
+        var input = [{a: 2, b: 5},{a: 10, b: 40}];
+        //set the input
+        component.input = input;
+        component.functionContent = 'current.sum = current.a + current.b; return current';
+        preInput.textContent = JSON.stringify(input, undefined, 2);
+
+        // update output
+        document.addEventListener('lens-output-changed', function(val) {
+          preOutput.textContent = JSON.stringify(val.detail, undefined, 2);
+        });
+      
+      </script>
+
+      </template>
+    
+  </body>
+</html>
