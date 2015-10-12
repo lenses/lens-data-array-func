@@ -169,7 +169,7 @@ A data component with map, reduce, reduceRight and filter functions.
     },
     _calculateOutput: function () {
       var self = this;
-      var temp = _.clone(self.input);
+      var temp = _.clone(self.input, true);
       if (self._function == undefined) {
         return;
       }
